@@ -35,7 +35,6 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     <Container className="space-y-12">
       <section className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
         <SectionHeading
-          eyebrow="Monorepo auth sandbox"
           title="A local SSR playground for Better Auth, Drizzle, Postgres, and Resend."
           description="Use this app to test the core email/password lifecycle with real server-side validation, cookie sessions, and reusable workspace UI components."
         />
