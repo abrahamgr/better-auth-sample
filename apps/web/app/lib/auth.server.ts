@@ -1,7 +1,7 @@
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { APIError } from 'better-auth/api'
-
+import * as schema from './db/auth-schema'
 import { db } from './db/index.server'
 import { sendPasswordResetEmail } from './email.server'
 import { env } from './env.server'
@@ -12,6 +12,7 @@ export const auth = betterAuth({
   baseURL: env.BETTER_AUTH_URL,
   database: drizzleAdapter(db, {
     provider: 'pg',
+    schema,
     usePlural: true,
   }),
   emailAndPassword: {
