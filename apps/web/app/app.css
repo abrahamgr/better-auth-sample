@@ -1,0 +1,56 @@
+@import "tailwindcss";
+@source "../../../packages/ui/src";
+
+@theme {
+  --font-sans: "Söhne", "IBM Plex Sans", "Avenir Next", sans-serif;
+  --color-surface: #fbf7ef;
+  --color-surface-muted: #f3ecde;
+  --color-ink: #1f2937;
+  --color-ink-soft: #334155;
+  --color-muted: #5b6471;
+  --color-accent: #0f766e;
+  --color-border: rgba(31, 41, 55, 0.12);
+  --color-danger: #b91c1c;
+  --color-success: #166534;
+}
+
+@layer base {
+  html {
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    background:
+      radial-gradient(circle at top, rgba(15, 118, 110, 0.14), transparent 38%),
+      linear-gradient(180deg, #fffef9 0%, var(--color-surface) 100%);
+  }
+
+  body {
+    min-height: 100vh;
+  }
+
+  body::before {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(120deg, rgba(255, 255, 255, 0.55), transparent 40%),
+      radial-gradient(
+        circle at 20% 20%,
+        rgba(249, 115, 22, 0.12),
+        transparent 26%
+      ),
+      radial-gradient(
+        circle at 85% 15%,
+        rgba(15, 118, 110, 0.18),
+        transparent 28%
+      );
+    content: "";
+  }
+
+  * {
+    border-color: var(--color-border);
+  }
+
+  a {
+    color: inherit;
+  }
+}
