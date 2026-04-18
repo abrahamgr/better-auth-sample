@@ -19,4 +19,5 @@ export const logger = pino({
     ],
     remove: true,
   },
+  transport: import.meta.env.DEV ? { target: 'pino-pretty' } : undefined,
 })

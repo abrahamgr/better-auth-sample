@@ -8,11 +8,11 @@
     "node": ">=24.0.0"
   },
   "scripts": {
-    "dev": "bun --filter=./apps/web run dev",
-    "build": "bun --filter=./apps/web run build",
+    "dev": "pnpm --filter=./apps/web run dev",
+    "build": "pnpm --filter=./apps/web run build",
     "check": "biome check --write",
     "lint": "biome check .",
-    "start": "bun --filter=./apps/web run start",
+    "start": "pnpm --filter=./apps/web run start",
     "typecheck": "pnpm -r typecheck",
     "db:up": "docker compose up -d",
     "db:down": "docker compose down",
