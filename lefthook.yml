@@ -7,6 +7,6 @@ pre-commit:
   parallel: true
   jobs:
     - name: biome
-      run: pnpm run check -- --unsafe --no-errors-on-unmatched {staged_files}
+      run: pnpm run check --unsafe --no-errors-on-unmatched {staged_files}
       glob: '*.{css,js,jsx,ts,tsx,md,yml,json}'
       stage_fixed: true
