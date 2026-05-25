@@ -44,3 +44,20 @@ for source_path in "$source_dir"/*; do
 done
 
 echo "Skills linked successfully."
+
+claude_md="$repo_root/CLAUDE.md"
+agents_md_rel="AGENTS.md"
+
+if [[ -L "$claude_md" ]]; then
+  if [[ "$(readlink "$claude_md")" != "$agents_md_rel" ]]; then
+    rm "$claude_md"
+    ln -s "$agents_md_rel" "$claude_md"
+    echo "CLAUDE.md symlink updated."
+  fi
+elif [[ -e "$claude_md" ]]; then
+  echo "Refusing to replace non-symlink CLAUDE.md" >&2
+  exit 1
+else
+  ln -s "$agents_md_rel" "$claude_md"
+  echo "CLAUDE.md symlinked to AGENTS.md."
+fi
