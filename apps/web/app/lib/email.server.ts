@@ -1,15 +1,29 @@
-import nodemailer from 'nodemailer'
+import nodemailer, { type Transporter } from 'nodemailer'
 import { Resend } from 'resend'
 
 import { env } from './env.server'
 import { logger } from './logger.server'
 
-const resend = env.RESEND_API_KEY ? new Resend(env.RESEND_API_KEY) : null
-const smtpTransport = nodemailer.createTransport({
-  host: env.SMTP_HOST,
-  port: env.SMTP_PORT,
-  secure: env.SMTP_SECURE,
-})
+let smtpTransport: Transporter | null = null
+function getSmtpTransport() {
+  if (!smtpTransport) {
+    smtpTransport = nodemailer.createTransport({
+      host: env.SMTP_HOST,
+      port: env.SMTP_PORT,
+      secure: env.SMTP_SECURE,
+    })
+  }
+  return smtpTransport
+}
+
+let resendClient: Resend | null = null
+function getResend() {
+  if (!env.RESEND_API_KEY) return null
+  if (!resendClient) {
+    resendClient = new Resend(env.RESEND_API_KEY)
+  }
+  return resendClient
+}
 
 function getPasswordResetMarkup({
   resetUrl,
@@ -48,7 +62,7 @@ export async function sendPasswordResetEmail({
   const isProduction = process.env.NODE_ENV === 'production'
 
   if (!isProduction) {
-    const result = await smtpTransport.sendMail({
+    const result = await getSmtpTransport().sendMail({
       from: env.EMAIL_FROM,
       html,
       subject: 'Reset your password',
@@ -66,6 +80,7 @@ export async function sendPasswordResetEmail({
     return
   }
 
+  const resend = getResend()
   if (!resend) {
     logger.warn(
       {
