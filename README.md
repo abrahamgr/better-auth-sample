@@ -5,6 +5,9 @@ A small local sandbox for Better Auth with React Router, Drizzle, Postgres, and 
 ## Quick start
 
 ```bash
+cp apps/web/.env.sample apps/web/.env
+# Edit apps/web/.env — at minimum set BETTER_AUTH_SECRET to a strong random value:
+#   openssl rand -base64 32
 pnpm install
 pnpm db:up
 pnpm dev
